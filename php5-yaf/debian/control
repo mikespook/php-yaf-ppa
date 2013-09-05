@@ -2,7 +2,7 @@ Source: php-yaf
 Section: php
 Priority: optional
 Maintainer: Xing Xing <mikespook@gmail.com>
-Build-Depends: debhelper (>= 6), php5-dev (>= 5.2), libpcre3-dev
+Build-Depends: debhelper (>= 6), php5-dev (>= 5.2), libpcre3-dev, dh-make-php
 Standards-Version: 3.9.4
 Homepage: https://github.com/laruence/php-yaf
 
