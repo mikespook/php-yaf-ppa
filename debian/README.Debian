@@ -1,7 +1,9 @@
 php5-yaf for Debian
 --------------------------
 
-This extension has been created with dh-make-pecl which is part
-of dh-make-php.
+Yet Another Framework in PHP extension
+
+Yaf is a PHP framework similar to zend framework, which is written
+in c and built as PHP extension
 
  -- Xing Xing <mikespook@gmail.com>, Wed, 04 Sep 2013 22:41:14 +0800
