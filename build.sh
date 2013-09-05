@@ -94,4 +94,4 @@ read correct
 [ "$correct" != "y" ] && exit
 
 cd $current
-dput ppa:mikespook/php5-yaf php-yaf_${CODENAME}-${INC}~${VERSION}_source.changes
+dput ppa:mikespook/php5-yaf php-yaf_${VERSION}-${INC}~${CODENAME}_source.changes
