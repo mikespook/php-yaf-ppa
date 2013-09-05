@@ -34,8 +34,8 @@ current="`pwd`"
 cd $SOURCE_DIR 
 git pull 
 git checkout $TAG
-cd $current
-tar zcvf $TAR $SOURCE_DIR && \
+cd $current/php5-yaf
+tar zcvf $TAR `basename $SOURCE_DIR` && \
 	mv $TAR ../ && \
 	ln -s $TAR ../php-yaf_$VERSION.orig.tar.gz
 

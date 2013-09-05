@@ -50,7 +50,9 @@ clean:
 	(cd $(SOURCE_DIR); \
 	$(MAKE) clean; \
 	$(PHPIZE)$* --clean)
-	rm -rf tmp
+	rm -rf ../tmp
+	rm -f debian/$(BIN_PACKAGE_NAME).substvars
+	rm -rf debian/$(BIN_PACKAGE_NAME)/
 	dh_clean
 
 install: build
@@ -58,7 +60,7 @@ install: build
 	dh_testroot
 	dh_installdirs
 	mkdir -p debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)
-	install -m 644 -o root -g root tmp/modules$*/$(PECL_PKG_NAME).so debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)/$(PECL_PKG_NAME).so
+	install -m 644 -o root -g root ../tmp/modules$*/$(PECL_PKG_NAME).so debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)/$(PECL_PKG_NAME).so
 	if [ -f "debian/$(PECL_PKG_NAME).ini" ]; then \
 		mkdir -p debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
 		cp debian/$(PECL_PKG_NAME).ini debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
