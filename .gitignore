@@ -1,1 +1,7 @@
 Changelog
+*.tar.gz
+*.deb
+*.dsc
+*.build
+*.changes
+
