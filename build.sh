@@ -76,6 +76,7 @@ if [ ! -f $TAR ]; then
     cd $SOURCE_DIR
     git pull 
     git checkout $TAG
+    cd $current
     tar zcvf $TAR `basename $SOURCE_DIR` && \
     	ln -sf $TAR php-yaf_$VERSION.orig.tar.gz
 fi
