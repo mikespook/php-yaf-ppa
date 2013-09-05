@@ -14,10 +14,10 @@ endif
 TAR=tar
 PECL_PKG_NAME=yaf
 PACKAGE_NAME=php-yaf
-BIN_PACKAGE_NAME=php$*-yaf
+BIN_PACKAGE_NAME=php5-yaf
 PHPIZE=/usr/bin/phpize
 PHPCONFIG=/usr/bin/php-config
-EXT_DIR=$(shell $(PHPCONFIG)$* --extension-dir)
+EXT_DIR=$(shell $(PHPCONFIG) --extension-dir)
 SOURCE_DIR=yaf-src
 VER=2.2.9
 TAG=yaf-$(VER)
@@ -29,15 +29,15 @@ configure: configure-stamp
 configure-stamp:
 	dh_testdir
 	(cd $(SOURCE_DIR); \
-	$(PHPIZE)$*; \
-	./configure --with-php-config=$(PHPCONFIG)$* --prefix=/usr)
+	$(PHPIZE); \
+	./configure --with-php-config=$(PHPCONFIG) --prefix=/usr)
 	touch $@
 
 build: build-stamp
 
 build-stamp: configure 
 	dh_testdir
-	(cd $(SOURCE_DIR); $(MAKE); mkdir -p ../tmp/modules$*; cp modules/* ../tmp/modules$*; $(MAKE) clean)
+	(cd $(SOURCE_DIR); $(MAKE); mkdir -p ../tmp/modules; cp modules/* ../tmp/modules; $(MAKE) clean)
 	(/usr/share/dh-make-php/phppkginfo $(SOURCE_DIR) changelog > debian/Changelog)
 	touch build-stamp
 	touch $@
@@ -49,7 +49,7 @@ clean:
 	# Add here commands to clean up after the build process.
 	(cd $(SOURCE_DIR); \
 	$(MAKE) clean; \
-	$(PHPIZE)$* --clean)
+	$(PHPIZE) --clean)
 	rm -rf ../tmp
 	rm -f debian/$(BIN_PACKAGE_NAME).substvars
 	rm -rf debian/$(BIN_PACKAGE_NAME)/
@@ -59,11 +59,11 @@ install: build
 	dh_testdir
 	dh_testroot
 	dh_installdirs
-	mkdir -p debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)
-	install -m 644 -o root -g root ../tmp/modules$*/$(PECL_PKG_NAME).so debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)/$(PECL_PKG_NAME).so
+	mkdir -p debian/$(BIN_PACKAGE_NAME)$(EXT_DIR)
+	install -m 644 -o root -g root ../tmp/modules/$(PECL_PKG_NAME).so debian/$(BIN_PACKAGE_NAME)/$(EXT_DIR)/$(PECL_PKG_NAME).so
 	if [ -f "debian/$(PECL_PKG_NAME).ini" ]; then \
-		mkdir -p debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
-		cp debian/$(PECL_PKG_NAME).ini debian/$(BIN_PACKAGE_NAME)/etc/php$*/mods-available; \
+		mkdir -p debian/$(BIN_PACKAGE_NAME)/etc/php5/mods-available; \
+		install -m 644 -o root -g root debian/$(PECL_PKG_NAME).ini debian/$(BIN_PACKAGE_NAME)/etc/php5/mods-available; \
 	fi
 
 binary-indep:
