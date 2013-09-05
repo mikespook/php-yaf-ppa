@@ -1,4 +1,4 @@
-php-yaf (#VER#-ppa#INC#) #CODENAME#; urgency=low
+php-yaf (#VER#-#INC#~#CODENAME#) #CODENAME#; urgency=low
 
   * #COMMIT-MSG#
 

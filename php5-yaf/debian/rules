@@ -18,7 +18,7 @@ BIN_PACKAGE_NAME=php5-yaf
 PHPIZE=/usr/bin/phpize
 PHPCONFIG=/usr/bin/php-config
 EXT_DIR=$(shell $(PHPCONFIG) --extension-dir)
-SOURCE_DIR=yaf-src
+SOURCE_DIR=../yaf-src
 VER=2.2.9
 TAG=yaf-$(VER)
 

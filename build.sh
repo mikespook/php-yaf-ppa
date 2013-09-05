@@ -8,13 +8,13 @@ __git_ver() {
 	cd $current
 }
 
-SOURCE_DIR=php5-yaf/yaf-src/
+current="`pwd`"
+SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
 
 usage() {
-    echo "Usage: `basename $0` [-s=$SOURCE_DIR] [-v=$VERSION] [-i] [-c=$CODENAME]"
-	printf "\t -s : Source dir\n"
+    echo "Usage: `basename $0` [-v=$VERSION] [-i] [-c=$CODENAME]"
 	printf "\t -v : Upstream version\n"
  	printf "\t -i : Index version\n"
  	printf "\t -c : Distribution's codename\n"
@@ -23,8 +23,6 @@ usage() {
 
 while getopts 's:v:i:c:' o &>> /dev/null; do
     case "$o" in
-    s)
-        SOURCE_DIR="$OPTARG";;
     v)
         VERSION="$OPTARG";;
     i)
@@ -48,16 +46,14 @@ else
 	TAR=yaf-$TAG.tar.gz
 fi
 
-current="`pwd`"
-
 cd $current/php5-yaf
 t=debian/changelog.template
 f=debian/changelog
 cp -f $t $f
-sed -i -e "s/#DATE#/`date --rfc-2822`/" $f
-sed -i -e "s/#VER#/$VERSION/" $f
-sed -i -e "s/#INC#/$INC/" $f
-sed -i -e "s/#CODENAME#/$CODENAME/" $f
+sed -i -e "s/#DATE#/`date --rfc-2822`/g" $f
+sed -i -e "s/#VER#/$VERSION/g" $f
+sed -i -e "s/#INC#/$INC/g" $f
+sed -i -e "s/#CODENAME#/$CODENAME/g" $f
 
 printf "Please enter the Release Note: "
 read COMMIT_MSG
@@ -75,13 +71,14 @@ printf "Is the changelog correct? [y/n]"
 read correct
 [ "$correct" != "y" ] && exit
 
-cd $current
-cd $SOURCE_DIR 
-git pull 
-git checkout $TAG
-cd $current/php5-yaf
-tar zcvf $TAR `basename $SOURCE_DIR` && \
-	mv -f $TAR ../ && \
-	ln -sf $TAR ../php-yaf_$VERSION.orig.tar.gz
 
-debuild -S
+if [ ! -f $TAR ]; then
+    cd $SOURCE_DIR
+    git pull 
+    git checkout $TAG
+    tar zcvf $TAR `basename $SOURCE_DIR` && \
+    	ln -sf $TAR php-yaf_$VERSION.orig.tar.gz
+fi
+
+cd $current/php5-yaf
+debuild -S -k9C309C28
