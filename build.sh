@@ -49,14 +49,8 @@ else
 fi
 
 current="`pwd`"
-cd $SOURCE_DIR 
-git pull 
-git checkout $TAG
-cd $current/php5-yaf
-tar zcvf $TAR `basename $SOURCE_DIR` && \
-	mv -f $TAR ../ && \
-	ln -sf $TAR ../php-yaf_$VERSION.orig.tar.gz
 
+cd $current/php5-yaf
 t=debian/changelog.template
 f=debian/changelog
 cp -f $t $f
@@ -64,5 +58,30 @@ sed -i -e "s/#DATE#/`date --rfc-2822`/" $f
 sed -i -e "s/#VER#/$VERSION/" $f
 sed -i -e "s/#INC#/$INC/" $f
 sed -i -e "s/#CODENAME#/$CODENAME/" $f
+
+printf "Please enter the Release Note: "
+read COMMIT_MSG
+sed -i -e "s/#COMMIT-MSG#/${COMMIT_MSG}/" $f
+
+echo '
+changelog is ready:
+====================
+'
+cat $f
+echo '
+====================
+'
+printf "Is the changelog correct? [y/n]"
+read correct
+[ "$correct" != "y" ] && exit
+
+cd $current
+cd $SOURCE_DIR 
+git pull 
+git checkout $TAG
+cd $current/php5-yaf
+tar zcvf $TAR `basename $SOURCE_DIR` && \
+	mv -f $TAR ../ && \
+	ln -sf $TAR ../php-yaf_$VERSION.orig.tar.gz
 
 debuild -S
