@@ -1,9 +1,9 @@
-PHP-YAF-ppa
+PHP-YAF-PPA
 ===========
 
-YAF is a PHP framework written in c and built as a PHP extension.
+[YAF][1] is a PHP framework written in c and built as a PHP extension.
 
-You could use `PHP-YAF-ppa` deploy PHP-YAF into your Ubuntu OS easily.
+You could use [ppa][2] to deploy PHP-YAF into your Ubuntu OS easily.
 
 Installing
 ----------
@@ -31,6 +31,37 @@ or Apache mod:
 
 	sudo service apache2 restart
 
+Build PPA
+---------
+
+`build.sh` is a tool for helping build PHP-YAF-PPA.
+
+	Usage: build.sh [-v2.2.9] [-i] [-craring]
+		-v : Upstream version
+		-i : Index version
+		-c : Distribution's codename
+
+`Upstream version` is YAF release version. Currently, the version is `2.2.9`.
+If you want to build previous version, please specify it. 
+
+`Index version` is the version for PPA, pure number required.
+
+`Distribution's codename` is the release name of your Ubuntu. 
+Using `lsb_release -c` to detect it.
+
+For example, if want to build a new ppa release for Ubuntu 12.04 (precise) with
+the newest YAF version.
+
+	build.sh -v 2.2.9 -i 1 -c precise
+
+Because the newest version of YAF is 2.2.9, in this case, `-v` could be omited.
+If your host OS is Ubuntu 12.04, `-c` could be omited too.
+
+After inputting the release note and checked the `changelog`, source.changes
+file will be created. Read the [introduction][3] on the launchpad to know why
+only source.changes file used.
+
+
 Maintainer
 ----------
 
@@ -45,3 +76,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+[1]: https://github.com/laruence/php-yaf
+[2]: https://launchpad.net/~mikespook/+archive/php5-yaf
+[3]: https://help.launchpad.net/Packaging/PPA/Uploading
