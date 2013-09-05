@@ -71,15 +71,26 @@ printf "Is the changelog correct? [y/n]"
 read correct
 [ "$correct" != "y" ] && exit
 
-
+cd $current
 if [ ! -f $TAR ]; then
+    echo $TAR
     cd $SOURCE_DIR
     git pull 
     git checkout $TAG
     cd $current
     tar zcvf $TAR `basename $SOURCE_DIR` && \
-    	ln -sf $TAR php-yaf_$VERSION.orig.tar.gz
+   	ln -sf $TAR php-yaf_$VERSION.orig.tar.gz
 fi
+
+printf "Start to build source package? [y/n]"
+read correct
+[ "$correct" != "y" ] && exit
 
 cd $current/php5-yaf
 debuild -S -k9C309C28
+
+printf "Upload to PPA? [y/n]"
+read correct
+[ "$correct" != "y" ] && exit
+
+dput ppa:mikespook/php5-yaf php-yaf_${CODENAME}-${INC}~${VERSION}_source.changes
