@@ -3,7 +3,12 @@ set -e
 
 case "$1" in
     remove|upgrade|deconfigure)
-	php5dismod yaf
+	locate php5dismod
+	if [ $? -eq 0 ] ; then
+		php5dismod yaf
+	else
+		find -name "*yaf.ini" /etc/php5/conf.d/ --delete
+	fi
     ;;
 
     failed-upgrade)
