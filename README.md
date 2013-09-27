@@ -36,6 +36,12 @@ Build PPA
 
 `build.sh` is a tool for helping build PHP-YAF-PPA.
 
+To use this tool you must install following packages:
+
+	apt-get install pbuilder debhelper php5-dev libpcre3-dev dh-make-php
+	
+Type `./build.sh -h` in the terminal, get:
+
 	Usage: build.sh [-v2.2.9] [-i] [-craring]
 		-v : Upstream version
 		-i : Index version

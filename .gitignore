@@ -6,3 +6,4 @@ Changelog
 *.build
 *.changes
 *.upload
+release.note
