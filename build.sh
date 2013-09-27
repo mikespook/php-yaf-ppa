@@ -1,17 +1,18 @@
 #!/bin/bash
 
 __git_ver() {
-	pushd ./
+	pushd ./ > /dev/null
 	cd $1
 	local tag=`git tag |tail -n 1`
 	echo ${tag#*-}
-	popd
+	popd > /dev/null
 }
 
 current="`pwd`"
 SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
+KEY=`gpg --list-key|sed -n -r -e 's/^pub   [A-Z,0-9]{5}\/([A-Z,0-9]{8}).*/\1/p'|head -n 1`
 
 usage() {
     echo "Usage: `basename $0` [-v=$VERSION] [-i] [-c=$CODENAME]"
@@ -62,7 +63,7 @@ else
 	TAR=yaf-$TAG.tar.gz
 fi
 
-pushd ./
+pushd ./ > /dev/null
 cd $current/php5-yaf
 t=debian/changelog.template
 f=debian/changelog
@@ -89,15 +90,14 @@ if [ ! -f $f ]; then
 	cp $f $current/release.note
 fi
 
-popd
-
+popd > /dev/null
 if [ ! -f $TAR ]; then
     echo $TAR
-	pushd ./
+	pushd ./ > /dev/null
     cd $SOURCE_DIR
     git pull 
     git checkout $TAG
-	popd
+	popd > /dev/null
     tar zcvf $TAR `basename $SOURCE_DIR` && \
    	ln -sf $TAR php-yaf_$VERSION.orig.tar.gz
 fi
@@ -106,13 +106,13 @@ printf "Start to build source package? [y/n]"
 read correct
 [ "$correct" != "y" ] && exit
 
-pushd ./
+pushd ./ > /dev/null
 cd $current/php5-yaf
-debuild -S -k9C309C28
+debuild -S -k$KEY
 
 printf "Upload to PPA? [y/n]"
 read correct
 [ "$correct" != "y" ] && exit
 
-popd
+popd > /dev/null
 dput ppa:mikespook/php5-yaf php-yaf_${VERSION}-${INC}~${CODENAME}_source.changes
