@@ -15,24 +15,24 @@ CODENAME=`lsb_release -cs`
 KEY=`gpg --list-key|sed -n -r -e 's/^pub   [A-Z,0-9]{5}\/([A-Z,0-9]{8}).*/\1/p'|head -n 1`
 
 usage() {
-    echo "Usage: `basename $0` [-v=$VERSION] [-i] [-c=$CODENAME]"
+    echo "Usage: `basename $0` [-v $VERSION] [-i] [-c $CODENAME]"
 	printf "\t -v : Upstream version\n"
  	printf "\t -i : Index version\n"
- 	printf "\t -c : Distribution's codename\n"
+ 	printf "\t -c : Distribution's codename [ raring | quantal | precise | lucid ]\n"
     exit 1
 }
 
 check_release_note() {
 	local f=$1
 	echo '
-changelog is ready:
+Release note:
 ====================
 '
 cat $f
 echo '
 ====================
 '
-	printf "Is the changelog correct? [y/n]"
+	printf "Is the release note correct? [y/n]"
 	read correct
 	[ "$correct" == "y" ]
 	return $?
@@ -69,11 +69,6 @@ t=debian/changelog.template
 f=debian/changelog
 [ -f $f ] && rm $f
 
-if [ -f $current/release.note ]; then
-	check_release_note $current/release.note
-	[ $? -eq 0 ] && cp -f $current/release.note $f
-fi
-
 if [ ! -f $f ]; then
 	cp -f $t $f
 	sed -i -e "s/#DATE#/`date --rfc-2822`/g" $f
@@ -81,13 +76,16 @@ if [ ! -f $f ]; then
 	sed -i -e "s/#INC#/$INC/g" $f
 	sed -i -e "s/#CODENAME#/$CODENAME/g" $f
 
-	printf "Please enter the Release Note: "
-	read COMMIT_MSG
+	if [ -f $current/release.note ]; then
+		check_release_note $current/release.note && COMMIT_MSG=`cat $current/release.note`
+	fi
+	if [ -z "$COMMIT_MSG" ]; then
+		printf "Please enter the Release Note: "
+		read COMMIT_MSG
+	fi
 	sed -i -e "s/#COMMIT-MSG#/${COMMIT_MSG}/" $f
-
-	check_release_note $f
-	[ $? -ne 0 ] && exit
-	cp $f $current/release.note
+	check_release_note $f || exit
+	echo $COMMIT_MSG > $current/release.note
 fi
 
 popd > /dev/null
