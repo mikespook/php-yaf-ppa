@@ -1,6 +1,6 @@
 changelog
 Changelog
-*.tar.gz
+*.debian.tar.gz
 *.deb
 *.dsc
 *.build
