@@ -93,7 +93,8 @@ if [ ! -f $TAR ]; then
     echo $TAR
 	pushd ./ > /dev/null
     cd $SOURCE_DIR
-    git pull 
+	git reset --hard
+    git pull
     git checkout $TAG
 	popd > /dev/null
     tar zcvf $TAR `basename $SOURCE_DIR` && \
