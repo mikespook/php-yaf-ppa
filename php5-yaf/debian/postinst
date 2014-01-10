@@ -6,8 +6,7 @@ dpkg-maintscript-helper mv_conffile /etc/php5/conf.d/yaf.ini \
 
 case "$1" in
     configure)
-		locate php5enmod
-		if [ $? -eq 0 ] ; then
+		if [ -f /usr/sbin/php5enmod ] ; then
 			php5enmod yaf
 		else
 			ln -s /etc/php5/mods-available/yaf.ini /etc/php5/conf.d/yaf.ini
