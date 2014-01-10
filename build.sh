@@ -13,12 +13,13 @@ SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
 KEY=`gpg --list-key|sed -n -r -e 's/^pub   [A-Z,0-9]{5}\/([A-Z,0-9]{8}).*/\1/p'|head -n 1`
+dist="saucy raring quantal precise lucid"
 
 usage() {
     echo "Usage: `basename $0` [-v $VERSION] [-i] [-c $CODENAME]"
 	printf "\t -v : Upstream version\n"
  	printf "\t -i : Index version\n"
- 	printf "\t -c : Distribution's codename [ raring | quantal | precise | lucid ]\n"
+ 	printf "\t -c : Distribution's codename [ $dist ]\n"
     exit 1
 }
 
