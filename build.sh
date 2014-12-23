@@ -89,6 +89,16 @@ if [ ! -f $f ]; then
 	echo $COMMIT_MSG > $current/release.note
 fi
 
+t=debian/rules.template
+f=debian/rules
+
+[ -f $f ] && rm $f
+
+if [ ! -f $f ]; then
+	cp -f $t $f
+	sed -i -e "s/#VER#/$VERSION/g" $f
+fi
+
 popd > /dev/null
 if [ ! -f $TAR ]; then
     echo $TAR
@@ -116,3 +126,6 @@ read correct
 
 popd > /dev/null
 dput ppa:mikespook/php5-yaf php-yaf_${VERSION}-${INC}~${CODENAME}_source.changes
+
+rm $current/php5-yaf/debian/rules
+rm $current/php5-yaf/debian/changelog

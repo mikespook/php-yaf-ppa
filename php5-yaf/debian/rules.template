@@ -19,7 +19,7 @@ PHPIZE=/usr/bin/phpize
 PHPCONFIG=/usr/bin/php-config
 EXT_DIR=$(shell $(PHPCONFIG) --extension-dir)
 SOURCE_DIR=../yaf-src
-VER=2.2.9
+VER=#VER#
 TAG=yaf-$(VER)
 
 phpapiver=$(shell /usr/bin/php-config5 --phpapi)

@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -e
+
+[ "$1" = "configure" ] && php5enmod yaf
+
+#DEBHELPER#
+
+exit 0
