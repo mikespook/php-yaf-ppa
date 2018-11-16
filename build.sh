@@ -12,7 +12,6 @@ current="`pwd`"
 SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
-KEY=`gpg --list-key|sed -n -r -e 's/^pub   [A-Z,0-9]{5}\/([A-Z,0-9]{8}).*/\1/p'|head -n 1`
 dist="trusty xenial bionic cosmic"
 
 usage() {
@@ -115,7 +114,7 @@ read correct
 
 pushd ./ > /dev/null
 cd $current/php-yaf
-debuild -S -k$KEY
+debuild -S
 
 printf "Upload to PPA? [y/n]"
 read correct
