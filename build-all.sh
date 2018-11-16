@@ -1,6 +1,6 @@
 #!/bin/bash
 current="`pwd`"
-dist="saucy raring quantal precise lucid trusty"
+dist="trusty xenial bionic cosmic"
 
 usage() {
     echo "Usage: `basename $0` [-v] [-i]"

@@ -11,7 +11,7 @@ Installing
 You must import PPA's key into your system and setup apt's sources.list first.
 `add-apt-repository` can help us to take over the fussy job:
 
-	sudo add-apt-repository ppa:mikespook/php5-yaf
+	sudo add-apt-repository ppa:mikespook/php-yaf
 
 Then you should tell your system to pull down the latest list:
 
@@ -19,17 +19,7 @@ Then you should tell your system to pull down the latest list:
 
 Using `apt-get` to complete the installation:
 
-	sudo apt-get install php5-yaf
-
-After installing without error, you **MUST** restart your PHP process.
-
-Eg. PHP FPM:
-
-	sudo service php5-fpm restart
-
-or Apache mod:
-
-	sudo service apache2 restart
+	sudo apt-get install php-yaf
 
 Build PPA
 ---------
@@ -38,16 +28,23 @@ Build PPA
 
 To use this tool you must install following packages:
 
-	apt-get install pbuilder debhelper php5-dev libpcre3-dev dh-make-php
-	
+	apt install pbuilder debhelper php-dev libpcre3-dev
+
 Type `./build.sh -h` in the terminal, get:
 
-	Usage: build.sh [-v2.2.9] [-i] [-craring]
-		-v : Upstream version
-		-i : Index version
-		-c : Distribution's codename
+	Usage: build.sh [-v 3.0.7] [-i] [-c bionic]
+		 -v : Upstream version
+		 -i : Index version
+		 -c : Distribution's codename [ trusty xenial bionic cosmic ]
 
-`Upstream version` is YAF release version. Currently, the version is `2.2.9`.
+	========
+	Version	Codename
+	18.10	Cosmic Cuttlefish
+	18.04	Bionic Beaver
+	16.04	Xenial Xerus
+	14.04	Trusty Tahr
+
+`Upstream version` is YAF release version. Currently, the version is `3.0.7`.
 If you want to build previous version, please specify it. 
 
 `Index version` is the version for PPA, pure number required.
@@ -58,10 +55,10 @@ Using `lsb_release -c` to detect it.
 For example, if want to build a new ppa release for Ubuntu 12.04 (precise) with
 the newest YAF version.
 
-	build.sh -v 2.2.9 -i 1 -c precise
+	build.sh -v 3.0.7 -i 1 -c bionic
 
-Because the newest version of YAF is 2.2.9, in this case, `-v` could be omited.
-If your host OS is Ubuntu 12.04, `-c` could be omited too.
+Because the newest version of YAF is 3.0.7, in this case, `-v` could be omited.
+If your host OS is Ubuntu 18.04, `-c` could be omited too.
 
 After inputting the release note and checked the `changelog`, source.changes
 file will be created. Read the [introduction][3] on the launchpad to know why
@@ -84,5 +81,5 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [1]: https://github.com/laruence/php-yaf
-[2]: https://launchpad.net/~mikespook/+archive/php5-yaf
+[2]: https://launchpad.net/~mikespook/+archive/php-yaf
 [3]: https://help.launchpad.net/Packaging/PPA/Uploading

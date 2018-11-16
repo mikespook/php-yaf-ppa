@@ -13,13 +13,19 @@ SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
 KEY=`gpg --list-key|sed -n -r -e 's/^pub   [A-Z,0-9]{5}\/([A-Z,0-9]{8}).*/\1/p'|head -n 1`
-dist="saucy raring quantal precise lucid"
+dist="trusty xenial bionic cosmic"
 
 usage() {
     echo "Usage: `basename $0` [-v $VERSION] [-i] [-c $CODENAME]"
 	printf "\t -v : Upstream version\n"
  	printf "\t -i : Index version\n"
  	printf "\t -c : Distribution's codename [ $dist ]\n"
+	printf "\n========\n"
+	printf "Version\tCodename\n"
+	printf "18.10\tCosmic Cuttlefish\n"
+	printf "18.04\tBionic Beaver\n"
+	printf "16.04\tXenial Xerus\n"
+	printf "14.04\tTrusty Tahr\n"
     exit 1
 }
 
@@ -65,7 +71,7 @@ else
 fi
 
 pushd ./ > /dev/null
-cd $current/php5-yaf
+cd $current/php-yaf
 t=debian/changelog.template
 f=debian/changelog
 [ -f $f ] && rm $f
@@ -78,6 +84,7 @@ if [ ! -f $f ]; then
 	sed -i -e "s/#CODENAME#/$CODENAME/g" $f
 
 	if [ -f $current/release.note ]; then
+		printf "Release note exists: $current/release.note\n"
 		check_release_note $current/release.note && COMMIT_MSG=`cat $current/release.note`
 	fi
 	if [ -z "$COMMIT_MSG" ]; then
@@ -87,16 +94,6 @@ if [ ! -f $f ]; then
 	sed -i -e "s/#COMMIT-MSG#/${COMMIT_MSG}/" $f
 	check_release_note $f || exit
 	echo $COMMIT_MSG > $current/release.note
-fi
-
-t=debian/rules.template
-f=debian/rules
-
-[ -f $f ] && rm $f
-
-if [ ! -f $f ]; then
-	cp -f $t $f
-	sed -i -e "s/#VER#/$VERSION/g" $f
 fi
 
 popd > /dev/null
@@ -117,7 +114,7 @@ read correct
 [ "$correct" != "y" ] && exit
 
 pushd ./ > /dev/null
-cd $current/php5-yaf
+cd $current/php-yaf
 debuild -S -k$KEY
 
 printf "Upload to PPA? [y/n]"
@@ -125,7 +122,5 @@ read correct
 [ "$correct" != "y" ] && exit
 
 popd > /dev/null
-dput ppa:mikespook/php5-yaf php-yaf_${VERSION}-${INC}~${CODENAME}_source.changes
-
-rm $current/php5-yaf/debian/rules
-rm $current/php5-yaf/debian/changelog
+dput ppa:mikespook/php-yaf php-yaf_${VERSION}-${INC}~${CODENAME}_source.changes
+rm $current/php-yaf/debian/changelog

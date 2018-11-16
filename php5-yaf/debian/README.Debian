@@ -1,9 +1,0 @@
-php5-yaf for Debian
---------------------------
-
-Yet Another Framework in PHP extension
-
-Yaf is a PHP framework similar to zend framework, which is written
-in c and built as PHP extension
-
- -- Xing Xing <mikespook@gmail.com>, Wed, 04 Sep 2013 22:41:14 +0800
