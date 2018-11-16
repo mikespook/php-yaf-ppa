@@ -1,7 +1,10 @@
-*.debian.tar.gz
+*.tar.gz
+*.tar.xz
 *.deb
 *.dsc
 *.build
 *.changes
 *.upload
+*.build
+*.buildinfo
 release.note
