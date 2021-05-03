@@ -2,7 +2,8 @@ Source: php-yaf
 Section: php
 Priority: optional
 Maintainer: Xing Xing <mikespook@gmail.com>
-Build-Depends: debhelper (>= 9),
+Uploaders:Xing Xing <mikespook@gmail.com>
+Build-Depends: debhelper (>= 9~),
                dh-php (>= 0.12~),
                libpcre3-dev,
                php-all-dev
@@ -11,10 +12,11 @@ Homepage: http://pecl.php.net/package/yaf
 
 Package: php-yaf
 Architecture: any
+Pre-Depends: php-common (>= 1:60~)
 Depends: ${misc:Depends},
          ${php:Depends},
          ${shlibs:Depends}
 Provides: ${php:Provides}
 Recommends: ${misc:Recommends}
-Description: Yaf is a PHP framework similar to zend framework, which is written
+Description: Yaf is a PHP framework similar to Zend framework, which is written
  in c and built as PHP extension.
