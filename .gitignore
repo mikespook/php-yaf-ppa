@@ -8,3 +8,5 @@
 *.build
 *.buildinfo
 release.note
+php-yaf/debian/files
+yaf-src/*
