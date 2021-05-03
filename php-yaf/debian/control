@@ -3,7 +3,7 @@ Section: php
 Priority: optional
 Maintainer: Xing Xing <mikespook@gmail.com>
 Build-Depends: debhelper (>= 9),
-               dh-php (>= 0.23~),
+               dh-php (>= 0.12~),
                libpcre3-dev,
                php-all-dev
 Standards-Version: 3.9.8
