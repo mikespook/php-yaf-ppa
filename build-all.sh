@@ -1,6 +1,6 @@
 #!/bin/bash
 current="`pwd`"
-dist="trusty xenial bionic cosmic"
+dist="bionic focal groovy hirsute"
 
 usage() {
     echo "Usage: `basename $0` [-v] [-i]"
@@ -26,5 +26,5 @@ if [ -z $INC ] || [ -z $VERSION ]; then
 fi
 
 for d in $dist; do
-	$current/build.sh -v $VERSION -i $INC -c $dist
+	$current/build.sh -v $VERSION -i $INC -c $d
 done

@@ -12,7 +12,7 @@ current="`pwd`"
 SOURCE_DIR=$current/yaf-src/
 VERSION=`__git_ver $SOURCE_DIR`
 CODENAME=`lsb_release -cs`
-dist="trusty xenial bionic cosmic"
+dist="bionic focal groovy hirsute"
 
 usage() {
     echo "Usage: `basename $0` [-v $VERSION] [-i] [-c $CODENAME]"
@@ -21,10 +21,10 @@ usage() {
  	printf "\t -c : Distribution's codename [ $dist ]\n"
 	printf "\n========\n"
 	printf "Version\tCodename\n"
-	printf "18.10\tCosmic Cuttlefish\n"
+	printf "21.04\tHirsute Hippo\n"
+	printf "20.10\tGroovy Gorilla\n"
+	printf "20.04\tFocal Fossa\n"
 	printf "18.04\tBionic Beaver\n"
-	printf "16.04\tXenial Xerus\n"
-	printf "14.04\tTrusty Tahr\n"
     exit 1
 }
 
