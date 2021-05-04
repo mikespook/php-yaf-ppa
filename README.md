@@ -32,19 +32,19 @@ To use this tool you must install following packages:
 
 Type `./build.sh -h` in the terminal, get:
 
-	Usage: build.sh [-v 3.0.7] [-i] [-c bionic]
+	Usage: build.sh [-v 3.3.2] [-i] [-c focal]
 		 -v : Upstream version
 		 -i : Index version
-		 -c : Distribution's codename [ trusty xenial bionic cosmic ]
+		 -c : Distribution's codename [ bionic focal groovy hirsute ]
 
 	========
 	Version	Codename
-	18.10	Cosmic Cuttlefish
+	21.04	Hirsute Hippo
+	20.10	Groovy Gorilla
+	20.04	Focal Fossa
 	18.04	Bionic Beaver
-	16.04	Xenial Xerus
-	14.04	Trusty Tahr
 
-`Upstream version` is YAF release version. Currently, the version is `3.0.7`.
+`Upstream version` is YAF release version. Currently, the version is `3.3.2`.
 If you want to build previous version, please specify it. 
 
 `Index version` is the version for PPA, pure number required.
@@ -55,10 +55,10 @@ Using `lsb_release -c` to detect it.
 For example, if want to build a new ppa release for Ubuntu 12.04 (precise) with
 the newest YAF version.
 
-	build.sh -v 3.0.7 -i 1 -c bionic
+	build.sh -v 3.3.2 -i 1 -c focal
 
-Because the newest version of YAF is 3.0.7, in this case, `-v` could be omited.
-If your host OS is Ubuntu 18.04, `-c` could be omited too.
+Because the latest version of YAF is 3.3.2, in this case, `-v` could be omited.
+If your host OS is Ubuntu 20.04, `-c` could be omited too.
 
 After inputting the release note and checked the `changelog`, source.changes
 file will be created. Read the [introduction][3] on the launchpad to know why
