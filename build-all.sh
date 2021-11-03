@@ -1,9 +1,9 @@
 #!/bin/bash
 current="`pwd`"
-dist="bionic focal groovy hirsute"
+dist="jammy impish focal bionic"
 
 usage() {
-    echo "Usage: `basename $0` [-v] [-i]"
+    echo "Usage: `basename $0` [-v ver] [-i index]"
 	printf "\t -v : Upstream version\n"
  	printf "\t -i : Index version\n"
     exit 1
